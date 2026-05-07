@@ -1,0 +1,133 @@
+
+> mikmedia@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.5 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 563ms
+
+○ Compiling / ...
+ GET / 200 in 6.3s (next.js: 5.7s, application-code: 562ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+          <SegmentViewNode type="page" pagePath="src/page.tsx">
+            <SegmentTrieNode>
+            <ClientPageRoot Component={function StudioPage} serverProvidedParams={{...}}>
+              <StudioPage params={Promise} searchParams={Promise}>
+                <div className="h-full fle...">
+                  <Canvas>
+                    <div className="flex flex-...">
+                      <Toolbar activeTool="select" setActiveTool={function bound dispatchSetState} color="#8b5cf6" ...>
+                        <div className="h-16 borde...">
+                          <div className="flex items...">
+                            <ToolButton>
+                            <ToolButton>
+                            <div>
+                            <ToolButton>
+                            <ToolButton>
+                            <ToolButton>
+                            <div>
+                            <label className="cursor-poi...">
+                              <input
+                                type="file"
+                                className="hidden"
+                                accept="image/*"
+                                onChange={function handleImageUpload}
+-                               style={{caret-color:"transparent"}}
+                              >
+                              ...
+                          <div className="flex items...">
+                            <div className="flex items...">
+                              <span>
+                              <input
+                                type="color"
+                                value="#8b5cf6"
+                                onChange={function onChange}
+                                className="w-8 h-8 rounded-full overflow-hidden border-none cursor-pointer bg-transparent"
+-                               style={{caret-color:"transparent"}}
+                              >
+                            ...
+                      ...
+          ...
+        ...
+
+ GET /generate 200 in 554ms (next.js: 508ms, application-code: 46ms)
+ GET /video 200 in 658ms (next.js: 598ms, application-code: 59ms)
+ GET /assets 200 in 552ms (next.js: 517ms, application-code: 35ms)
+✓ Compiled in 177ms
+ GET / 200 in 212ms (next.js: 17ms, application-code: 195ms)
+ GET /video 200 in 43ms (next.js: 8ms, application-code: 35ms)
+ GET / 200 in 214ms (next.js: 3ms, application-code: 211ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+          <SegmentViewNode type="page" pagePath="src/page.tsx">
+            <SegmentTrieNode>
+            <ClientPageRoot Component={function StudioPage} serverProvidedParams={{...}}>
+              <StudioPage params={Promise} searchParams={Promise}>
+                <div className="h-full fle...">
+                  <Canvas>
+                    <div className="flex flex-...">
+                      <Toolbar activeTool="select" setActiveTool={function bound dispatchSetState} color="#8b5cf6" ...>
+                        <div className="h-16 borde...">
+                          <div className="flex items...">
+                            <ToolButton>
+                            <ToolButton>
+                            <div>
+                            <ToolButton>
+                            <ToolButton>
+                            <ToolButton>
+                            <div>
+                            <label className="cursor-poi...">
+                              <input
+                                type="file"
+                                className="hidden"
+                                accept="image/*"
+                                onChange={function handleImageUpload}
+-                               style={{caret-color:"transparent"}}
+                              >
+                              ...
+                          <div className="flex items...">
+                            <div className="flex items...">
+                              <span>
+                              <input
+                                type="color"
+                                value="#8b5cf6"
+                                onChange={function onChange}
+                                className="w-8 h-8 rounded-full overflow-hidden border-none cursor-pointer bg-transparent"
+-                               style={{caret-color:"transparent"}}
+                              >
+                            ...
+                      ...
+          ...
+        ...
+
+ GET /video 200 in 64ms (next.js: 4ms, application-code: 59ms)

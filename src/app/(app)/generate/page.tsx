@@ -13,24 +13,39 @@ const STYLES = [
 export default function GeneratePage() {
   const [prompt, setPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [generationStep, setGenerationStep] = useState('');
   const [selectedStyle, setSelectedStyle] = useState('photorealistic');
   const [generatedImages, setGeneratedImages] = useState<string[]>([]);
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (!prompt) return;
     setIsGenerating(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      const mockImages = [
-        `https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?w=800&q=80`,
-        `https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80`,
-        `https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80`,
-        `https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&q=80`
-      ];
-      setGeneratedImages(mockImages);
-      setIsGenerating(false);
-    }, 2000);
+    const steps = [
+      'Analyzing prompt semantics...',
+      'Mapping style vectors...',
+      'Diffusion process (Sampling: 0%)',
+      'Diffusion process (Sampling: 25%)',
+      'Diffusion process (Sampling: 50%)',
+      'Diffusion process (Sampling: 75%)',
+      'Upscaling to 4K Ultra-HD...',
+      'Finalizing textures...'
+    ];
+
+    for (const step of steps) {
+      setGenerationStep(step);
+      await new Promise(resolve => setTimeout(resolve, 600));
+    }
+
+    const mockImages = [
+      `https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?w=800&q=80`,
+      `https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80`,
+      `https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&q=80`,
+      `https://images.unsplash.com/photo-1549490349-8643362247b5?w=800&q=80`
+    ];
+    setGeneratedImages(mockImages);
+    setIsGenerating(false);
+    setGenerationStep('');
   };
 
   return (
@@ -95,7 +110,23 @@ export default function GeneratePage() {
         </div>
 
         <div className="lg:col-span-2">
-          {generatedImages.length > 0 ? (
+          {isGenerating ? (
+            <div className="h-full min-h-[500px] border border-white/5 rounded-3xl flex flex-col items-center justify-center p-12 text-center bg-card/20 backdrop-blur-xl">
+              <div className="relative mb-8">
+                 <div className="w-24 h-24 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+                 <div className="absolute inset-0 flex items-center justify-center">
+                    <Sparkles className="w-8 h-8 text-primary animate-pulse" />
+                 </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-4 animate-pulse">Generating Magic...</h3>
+              <p className="text-primary font-mono text-sm tracking-widest uppercase">
+                {generationStep}
+              </p>
+              <div className="mt-8 w-64 h-1 bg-white/5 rounded-full overflow-hidden">
+                <div className="h-full bg-primary animate-[shimmer_2s_infinite]" style={{ width: '60%' }} />
+              </div>
+            </div>
+          ) : generatedImages.length > 0 ? (
             <div className="grid grid-cols-2 gap-4">
               {generatedImages.map((img, i) => (
                 <div key={i} className="group relative aspect-square rounded-2xl overflow-hidden border border-white/10 bg-card">

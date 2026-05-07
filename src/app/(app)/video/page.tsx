@@ -13,11 +13,16 @@ import {
   Plus,
   Video as VideoIcon,
   Layers,
-  Settings2
+  Settings2,
+  Sparkles,
+  RefreshCw
 } from 'lucide-react';
 
 export default function VideoPage() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationStep, setGenerationStep] = useState('');
+  const [generationProgress, setGenerationProgress] = useState(0);
   const [progress, setProgress] = useState(40);
   const requestRef = useRef<number>(null);
 
@@ -47,8 +52,28 @@ export default function VideoPage() {
           <span className="text-xs text-foreground/40 font-mono">1080p | 30fps | 00:04:12</span>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-4 py-1.5 text-sm font-medium hover:bg-white/5 rounded-lg transition-colors">
-            Preview
+          <button
+            onClick={async () => {
+              setIsGenerating(true);
+              const steps = [
+                { text: 'Analyzing storyboard...', p: 15 },
+                { text: 'Generating motion vectors...', p: 35 },
+                { text: 'Neural rendering frames...', p: 65 },
+                { text: 'Enhancing temporal stability...', p: 85 },
+                { text: 'Finalizing 4K export...', p: 100 }
+              ];
+              for (const step of steps) {
+                setGenerationStep(step.text);
+                setGenerationProgress(step.p);
+                await new Promise(r => setTimeout(r, 800));
+              }
+              setIsGenerating(false);
+            }}
+            disabled={isGenerating}
+            className="px-4 py-1.5 text-sm font-bold bg-secondary rounded-lg shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2 disabled:opacity-50"
+          >
+            {isGenerating ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+            {isGenerating ? 'Generating Video...' : 'AI Generate Scene'}
           </button>
           <button className="px-4 py-1.5 text-sm font-bold bg-primary rounded-lg shadow-lg hover:opacity-90 transition-opacity">
             Export Video
@@ -85,12 +110,26 @@ export default function VideoPage() {
           <div className="flex-1 flex items-center justify-center p-12">
             <div className="aspect-video w-full max-w-4xl bg-card rounded-xl border border-white/5 shadow-2xl flex items-center justify-center relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 fill-current ml-1" />}
-              </button>
+
+              {isGenerating ? (
+                <div className="absolute inset-0 bg-black/80 backdrop-blur-xl z-20 flex flex-col items-center justify-center p-8 text-center">
+                   <div className="relative mb-6">
+                      <div className="w-32 h-32 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                         <span className="text-2xl font-bold text-primary">{generationProgress}%</span>
+                      </div>
+                   </div>
+                   <h3 className="text-2xl font-bold mb-2 animate-pulse">Neural Video Synthesis</h3>
+                   <p className="text-foreground/40 font-mono text-sm tracking-widest uppercase">{generationStep}</p>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  {isPlaying ? <Pause className="w-8 h-8" /> : <Play className="w-8 h-8 fill-current ml-1" />}
+                </button>
+              )}
             </div>
           </div>
 

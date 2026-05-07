@@ -10,9 +10,14 @@ export default function Canvas() {
   const [activeTool, setActiveTool] = useState('select');
   const [color, setColor] = useState('#8b5cf6');
   const [brushSize, setBrushSize] = useState(5);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !canvasRef.current) return;
 
     const fabricCanvas = new fabric.Canvas(canvasRef.current, {
       width: window.innerWidth - 300,
@@ -35,7 +40,7 @@ export default function Canvas() {
       fabricCanvas.dispose();
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [isMounted]);
 
   useEffect(() => {
     if (!canvas) return;

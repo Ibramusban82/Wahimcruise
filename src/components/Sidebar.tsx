@@ -22,7 +22,7 @@ function cn(...inputs: ClassValue[]) {
 const videoIcon = Video; // Alias because of naming conflict with icon name
 
 const navItems = [
-  { name: 'Studio', icon: Palette, href: '/' },
+  { name: 'Studio', icon: Palette, href: '/studio' },
   { name: 'Generate', icon: Sparkles, href: '/generate' },
   { name: 'Video', icon: videoIcon, href: '/video' },
   { name: 'Assets', icon: Layers, href: '/assets' },
@@ -34,9 +34,11 @@ export default function Sidebar() {
   return (
     <div className="w-64 h-full border-r border-border bg-card flex flex-col z-50">
       <div className="p-6">
-        <h1 className="text-2xl font-bold gradient-text tracking-tighter">
-          mikmedia
-        </h1>
+        <Link href="/" className="group">
+          <h1 className="text-2xl font-bold gradient-text tracking-tighter group-hover:opacity-80 transition-opacity">
+            mikmedia
+          </h1>
+        </Link>
       </div>
 
       <nav className="flex-1 px-4 space-y-2 mt-4">
